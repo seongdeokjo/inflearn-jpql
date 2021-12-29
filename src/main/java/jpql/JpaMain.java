@@ -15,7 +15,7 @@ public class JpaMain {
             team.setName("teamA");
             em.persist(team);
             Member member = new Member();
-            member.setUsername("member");
+            member.setUsername("관리자");
             member.setAge(10);
             member.setType(MemberType.ADMIN);
             member.setTeam(team);
@@ -23,17 +23,30 @@ public class JpaMain {
             em.flush();
             em.clear();
 //          --------------------------------------------------------------------
+            // nullif : 두 값이 같으면 null 반환, 다르면 첫번째 값 반환
+//            String query = "select nullif(m.username,'관리자') as username from Member m";
+            // coalesce : 하나씩 조회해서 null이 아니면 반환
+//            String query = "select coalesce(m.username,'이름 없는 회원') from Member m";
+            // 조건식 - case 식
+//            String query = "select case when m.age <= 10 then '학생요금'"
+//                    +"when m.age >= 60 then '경로요금' else '일반요금' end "
+//                    +"from Member m";
+//            List<String> resultList = em.createQuery(query, String.class).getResultList();
+//            for (String s : resultList) {
+//                System.out.println("s = " + s);
+//            }
+//          --------------------------------------------------------------------
             // jpql 타입 표현
-            String query = "select m.username, 'HELLO', true From Member m "+
-                             "where m.type = :userType";
-            List<Object[]> result = em.createQuery(query)
-                    .setParameter("userType",MemberType.ADMIN)
-                    .getResultList();
-            for (Object[] objects : result) {
-                System.out.println("objects = " + objects[0]);
-                System.out.println("objects = " + objects[1]);
-                System.out.println("objects = " + objects[2]);
-            }
+//            String query = "select m.username, 'HELLO', true From Member m "+
+//                             "where m.type = :userType";
+//            List<Object[]> result = em.createQuery(query)
+//                    .setParameter("userType",MemberType.ADMIN)
+//                    .getResultList();
+//            for (Object[] objects : result) {
+//                System.out.println("objects = " + objects[0]);
+//                System.out.println("objects = " + objects[1]);
+//                System.out.println("objects = " + objects[2]);
+//            }
 //          ---------------------------------------------------------------------
 //            String query = "select m from Member m inner join m.team t";
 //            List<Member> result = em.createQuery(query, Member.class)
