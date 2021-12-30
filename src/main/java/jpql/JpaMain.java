@@ -31,6 +31,14 @@ public class JpaMain {
             em.persist(member3);
             em.flush();
             em.clear();
+//          -------------------------------------------------------------------
+            // named 쿼리 - 어노테이션
+            List<Member> resultList = em.createNamedQuery("Member.findByUsername", Member.class)
+                    .setParameter("username", "회원1")
+                    .getResultList();
+            for (Member member : resultList) {
+                System.out.println("member = " + member);
+            }
 //          --------------------------------------------------------------------
             // fetch join
 //            String query = "select m from Member m";
